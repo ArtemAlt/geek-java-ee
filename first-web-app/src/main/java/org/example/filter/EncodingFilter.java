@@ -11,7 +11,7 @@ public class EncodingFilter implements Filter {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(EncodingFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         this.config = filterConfig;
     }
 
@@ -19,6 +19,7 @@ public class EncodingFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         servletResponse.setContentType("text/html");
         servletResponse.setCharacterEncoding("UTF-8");
+        servletRequest.setCharacterEncoding("UTF-8");
         log.info("do filter");
         filterChain.doFilter(servletRequest, servletResponse);
     }
