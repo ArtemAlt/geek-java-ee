@@ -39,6 +39,29 @@
                                      value="#{productController.product.price}"
                                      placeholder="Enter price"/>
                     </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Category"/>
+                        <h:selectOneListbox size="1" styleClass="form-control" id="productCategory"
+                                            value="#{productController.product.categoryId}">
+                            <f:selectItems value="#{productController.categories}"
+                                           var="cat"
+                                           itemValue="#{cat.id}"
+                                           itemLabel="#{cat.name}"
+                                           itemLabelEscaped="true"/>
+                        </h:selectOneListbox>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Brand"/>
+                        <h:selectOneListbox size="1" styleClass="form-control" id="productBrand"
+                                            value="#{productController.product.brandId}">
+                            <f:selectItems value="#{productController.brands}"
+                                           var="brand"
+                                           itemValue="#{brand.id}"
+                                           itemLabel="#{brand.name}"
+                                           itemLabelEscaped="true"/>
+                        </h:selectOneListbox>
+                    </div>
+
                     <h:commandButton value="Submit" styleClass="btn btn-primary"
                                      action="#{productController.saveProduct()}"/>
 
@@ -47,7 +70,18 @@
         </div>
     </div>
 
-    <ui:include src="WEB-INF/fragments/scripts.xhtml"/>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
 </h:body>
 
 </html>

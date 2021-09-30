@@ -1,0 +1,9 @@
+data-source add \
+--jndi-name=java:/jboss/datasources/java_ee \
+--name=java_ee \
+--connection-url=jdbc:postgresql://localhost:5432/java_ee \
+--driver-name=postgres \
+--user-name=postgres \
+--password=123456
+# 2. restarting Wildfly server
+:reload
