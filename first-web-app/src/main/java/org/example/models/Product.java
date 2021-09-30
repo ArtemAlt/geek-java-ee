@@ -3,53 +3,51 @@ import java.math.BigDecimal;
 
 public class Product {
     private Long id;
-    private String title;
+    private String name;
     private String description;
     private BigDecimal price;
 
-    public static class Builder {
-        private Product newProduct;
-
-        public Builder() {
-            newProduct = new Product();
-        }
-
-        public Builder setId(Long id) {
-            newProduct.id = id;
-            return this;
-        }
-
-        public Builder setTitle(String title) {
-            newProduct.title = title;
-            return this;
-        }
-
-        public Builder setDescription(String description) {
-            newProduct.description = description;
-            return this;
-        }
-
-        public Builder setPrice(BigDecimal price) {
-            newProduct.price = price;
-            return this;
-        }
-
-        public Product build() {
-            return newProduct;
-        }
-
-    }
-    public Long getId(){
-        return this.id;
+    public Product() {
     }
 
-    @Override
-    public String toString() {
-        String hrefLink = "http://127.0.0.1:8080/first-web-app-1.0-SNAPSHOT/products/info?product_id="+this.id;
-        return "<td> "+this.id+"</td> "+
-                "<td> <a href="+hrefLink+">"+this.title+"<a> </td>"+
-                "<td> "+this.description+"</td>"+
-                "<td> "+this.price+"</td>";
-
+    public Product(Long id, String title, String description, BigDecimal price) {
+        this.id = id;
+        this.name = title;
+        this.description = description;
+        this.price = price;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+
 }
