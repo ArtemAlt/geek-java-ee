@@ -13,19 +13,20 @@ import java.util.stream.Collectors;
 @Stateful
 public class CartService {
 
-    private final Map<Long,LineItem> lineItems = new HashMap<>();
+    private final Map<LineItem,Integer> lineItems = new HashMap<>();
 
     public List<LineItem> findAll() {
-        return new ArrayList<>(lineItems.values());
+        lineItems.forEach(LineItem::setQty);
+        return new ArrayList<>(lineItems.keySet());
     }
 
     public void addToCart(ProductDto product, Integer qty) {
-        LineItem item = new LineItem(product,qty,product.getPrice());
-        lineItems.put(product.getId(),item);
+        LineItem item = new LineItem(product,qty);
+        lineItems.put(item,lineItems.getOrDefault(item,0)+qty);
     }
 
     public void removeProduct(ProductDto product) {
-        lineItems.remove(product.getId());
+        lineItems.remove(new LineItem(product,0));
     }
 
 }

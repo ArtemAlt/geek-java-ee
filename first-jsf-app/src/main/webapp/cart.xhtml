@@ -39,10 +39,10 @@
                 <h:form id="cartTable">
                     <h:dataTable value="#{cartController.findAll()}" var="item"
                                  styleClass="table table-bordered">
-<!--                        <h:column>-->
-<!--                            <f:facet name="header">Id</f:facet>-->
-<!--                            #{item.productId}-->
-<!--                        </h:column>-->
+                        <h:column>
+                            <f:facet name="header">Id</f:facet>
+                            #{item.product.id}
+                        </h:column>
                         <h:column>
                             <f:facet name="header">Name</f:facet>
                             #{item.product.name}
@@ -56,14 +56,10 @@
                             #{item.price}
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Brand</f:facet>
-                            #{product.brandName}
-                        </h:column>
-                        <h:column>
                             <f:facet name="header">Action</f:facet>
                             <h:commandButton value="Delete" styleClass="btn btn-danger"
-                                             action="#{cartController.deleteProduct(product)}">
-                                <f:ajax event="click" render="productTable"/>
+                                             action="#{cartController.deleteProduct(item.product)}">
+                                <f:ajax event="click" render="cartTable"/>
                             </h:commandButton>
                         </h:column>
                     </h:dataTable>
