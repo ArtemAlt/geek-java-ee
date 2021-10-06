@@ -18,10 +18,8 @@
 
 <h:body>
 
-    <f:event listener="#{productController.preloadData}" type="preRenderView"/>
-
     <ui:include src="WEB-INF/fragments/navigation.xhtml">
-        <ui:param name="pageName" value="Product"/>
+        <ui:param name="pageName" value="Cart"/>
     </ui:include>
 
     <div class="container">
@@ -29,7 +27,6 @@
         <div class="row py-2">
             <div class="col-md-3 col-xs-12">
                 <div class="list-group my-2">
-
                     <ui:repeat value="#{productController.categories}" var="cat">
                         <h:link styleClass="list-group-item list-group-item-action if()active" value="#{cat.name}" outcome="/product">
                             <f:param name="categoryId" value="#{cat.id}"/>
@@ -39,42 +36,30 @@
             </div>
 
             <div class="col-md-9 col-xs-12">
-                <h:form id="productTable">
-                    <h:commandButton value="Add product" styleClass="btn btn-primary my-2"
-                                     action="#{productController.addProduct()}"/>
-
-                    <h:dataTable value="#{productController.findAll()}" var="product"
+                <h:form id="cartTable">
+                    <h:dataTable value="#{cartController.findAll()}" var="item"
                                  styleClass="table table-bordered">
                         <h:column>
                             <f:facet name="header">Id</f:facet>
-                            #{product.id}
+                            #{item.product.id}
                         </h:column>
                         <h:column>
                             <f:facet name="header">Name</f:facet>
-                            #{product.name}
+                            #{item.product.name}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Quantity</f:facet>
+                            #{item.qty}
                         </h:column>
                         <h:column>
                             <f:facet name="header">Price</f:facet>
-                            #{product.price}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Category</f:facet>
-                            #{product.categoryName}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Brand</f:facet>
-                            #{product.brandName}
+                            #{item.price}
                         </h:column>
                         <h:column>
                             <f:facet name="header">Action</f:facet>
-
-                            <h:commandButton value="Edit" styleClass="btn btn-success mr-2"
-                                             action="#{productController.editProduct(product)}"/>
-                            <h:commandButton value="Add to cart" styleClass="btn btn-success mr-2"
-                                             action="#{cartController.addToCart(product)}"/>
                             <h:commandButton value="Delete" styleClass="btn btn-danger"
-                                             action="#{productController.deleteProduct(product)}">
-                                <f:ajax event="click" render="productTable"/>
+                                             action="#{cartController.deleteProduct(item.product)}">
+                                <f:ajax event="click" render="cartTable"/>
                             </h:commandButton>
                         </h:column>
                     </h:dataTable>
