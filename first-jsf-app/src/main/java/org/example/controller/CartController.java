@@ -1,7 +1,6 @@
 package org.example.controller;
 
-
-import org.example.service.CartService;
+import org.example.service.CartServiceImpl;
 import org.example.service.dto.LineItem;
 import org.example.service.dto.ProductDto;
 
@@ -16,17 +15,17 @@ import java.util.List;
 public class CartController implements Serializable {
 
     @EJB
-    private CartService cartService;
+    private CartServiceImpl cartServiceImpl;
 
     public List<LineItem> findAll() {
-        return cartService.findAll();
+        return cartServiceImpl.findAll();
     }
 
     public void addToCart(ProductDto product) {
-        cartService.addToCart(product, 1);
+        cartServiceImpl.addToCart(product, 1);
     }
 
-    public void deleteProduct(ProductDto productDto){
-        cartService.removeProduct(productDto);
+    public void removeFromCart(ProductDto product) {
+        cartServiceImpl.removeProduct(product);
     }
 }

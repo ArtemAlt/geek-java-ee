@@ -5,6 +5,12 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
+@NamedEntityGraph(
+        name = "product-with-category-graph",
+        attributeNodes = {
+                @NamedAttributeNode("category")
+        }
+)
 public class Product {
 
     @Id
@@ -28,8 +34,7 @@ public class Product {
     public Product() {
     }
 
-
-    public Product(Long id, String name, BigDecimal price, Category category, Brand brand) {
+    public Product(Long id, String name, BigDecimal price, Category category,Brand brand) {
         this.id = id;
         this.name = name;
         this.price = price;

@@ -1,22 +1,31 @@
 package org.example.persist;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import javax.ejb.Stateless;
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class ProductRepository {
 
     @PersistenceContext(unitName = "ds")
     private EntityManager em;
 
     public List<Product> findAll() {
+        EntityGraph<?> eg = em.getEntityGraph("product-with-category-graph");
+        //return em.createQuery("from Product p left join fetch p.category", Product.class)
         return em.createQuery("from Product", Product.class)
+                .setHint("javax.persistence.loadgraph", eg)
+                .getResultList();
+    }
+
+    public List<Product> findByCategoryId(long categoryId) {
+        EntityGraph<?> eg = em.getEntityGraph("product-with-category-graph");
+        return em.createQuery("from Product p where p.category.id = :categoryId", Product.class)
+                .setParameter("categoryId", categoryId)
+                .setHint("javax.persistence.loadgraph", eg)
                 .getResultList();
     }
 
@@ -24,7 +33,6 @@ public class ProductRepository {
         return Optional.ofNullable(em.find(Product.class, id));
     }
 
-    @Transactional
     public Product save(Product product) {
         if (product.getId() == null) {
             em.persist(product);
