@@ -2,6 +2,7 @@ package org.example.persist;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -12,8 +13,7 @@ import javax.transaction.UserTransaction;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class BrandRepository {
 
     @PersistenceContext(unitName = "ds")
@@ -49,6 +49,7 @@ public class BrandRepository {
     public Optional<Brand> findById(long id) {
         return Optional.ofNullable(em.find(Brand.class, id));
     }
+
 
     public Brand getReference(Long id) {
         return em.getReference(Brand.class, id);
